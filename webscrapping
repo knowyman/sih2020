@@ -1,0 +1,51 @@
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+
+
+driver=webdriver.Chrome()
+driver.implicitly_wait(2)
+driver.get('https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin')
+email=driver.find_element_by_name('session_key')
+email.send_keys('atulpateltime348@gmail.com')
+passwrd=driver.find_element_by_name('session_password')
+passwrd.send_keys('know@135')
+driver.find_element_by_xpath('//*[@id="app__container"]/main/div/form/div[3]/button').click()
+
+
+# we are working with the help of linkedin address
+link1 = 'https://www.linkedin.com/in/himanshu-somani/'
+link2='https://www.linkedin.com/in/shrikant-verma-40553487/'
+link3='https://www.linkedin.com/in/rajeev-kumar-676590b5/'
+link4='https://www.linkedin.com/in/deepak-mourya/'
+link5='https://www.linkedin.com/in/inikitaphilips/'
+
+arraylink=[link1,link2,link3,link4,link5]
+for links in arraylink:
+  driver.get(links)
+
+
+  src = driver.page_source
+  soup = BeautifulSoup(src, 'html.parser')
+
+
+  name_div = soup.find('div', {'class': 'flex-1 mr5'})
+
+
+
+  name_loc = name_div.find_all('ul')
+  name = name_loc[0].find('li').get_text().strip()
+  print(name)
+
+  loc = name_loc[1].find('li').get_text().strip()
+  print(loc)
+
+  profile_title = name_div.find('h2').get_text().strip()
+  print(profile_title)
+
+  print("""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""")
+
+driver.close()
+
